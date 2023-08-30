@@ -18,6 +18,7 @@ package controller
 
 import (
 	"context"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"sync"
@@ -314,7 +315,8 @@ func (c *Controller) reconcileHandler(ctx context.Context, obj interface{}) {
 
 	log = log.WithValues("reconcileID", uuid.NewUUID())
 	ctx = logf.IntoContext(ctx, log)
-
+	jsn, _ := json.Marshal(ctx)
+	log.Info(fmt.Sprintf("KEDAR LOG IN MAIN CONTROLER: %s AS IT IS", string(jsn)))
 	// RunInformersAndControllers the syncHandler, passing it the Namespace/Name string of the
 	// resource to be synced.
 	result, err := c.Reconcile(ctx, req)
